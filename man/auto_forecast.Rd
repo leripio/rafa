@@ -43,7 +43,7 @@ Available models are: "auto.arima", "tbats", "ets", "nnetar", "hw", "arfima", "h
 \examples{
 \dontrun{
 library(rafa)
-auto_forecast(USAccDeaths)
+auto_forecast(USAccDeaths, test = c(1976,12))
 }
 }
 \author{
