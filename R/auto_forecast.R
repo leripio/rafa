@@ -81,7 +81,7 @@ mod_fun <- list("auto.arima"  = function(x, h) forecast::forecast(forecast::auto
 
       y <- timetk::tk_tbl(x) %>% tidyr::drop_na()
 
-      z <- y$value %>% ts(start = xts::first(y$index), end = xts::last(y$index), frequency = forecast::findfrequency(data))
+      z <- y$value %>% ts(start = xts::first(y$index), end = xts::last(y$index), frequency = stats::frequency(data))
 
       return(z)
 
