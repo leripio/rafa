@@ -27,7 +27,7 @@
 #'auto_forecast(USAccDeaths)
 #'}
 
-auto_forecast <- function(data, h = 12, h_cv = 1, window = NULL, acc = "MAE", n = 10, level = 0.05, exclude = NULL, test = NULL){
+auto_forecast <- function(data, h = 12, h_cv = 1, window = NULL, acc = "MAE", n = 100, level = 0.05, exclude = NULL, test = NULL){
 
 Equal <- Model <- Point <- valor <- value <- `.id` <- `:=` <- NULL
 
