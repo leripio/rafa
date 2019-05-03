@@ -1,6 +1,6 @@
 # rafa - R Automatic Forecasting Algorithm
 
-This project is intended to develop an automatic forecasting algorithm in R language with robust specification and correct confidence intervals calculations. The main goal of this algorithm is to provide the best possible forecast for a time series based on univariate models to serve either as a benchmark for variables which we have a reference model or the reference itself when we do not have a reference model. 
+This project is intended to develop an automatic forecasting algorithm in R language with robust specification and confidence intervals calculations. The main goal of this algorithm is to provide the best possible forecast for a time series based on univariate models to serve either as a benchmark for variables which we have a reference model or the reference itself when we do not have a reference model. 
 
 More specifically, it relies heavily on the R forecast package by Rob Hyndman and it is divided in 4 steps:
 
@@ -19,3 +19,5 @@ New features:
 Future developments:
 
 I intend to incorporate the "rectify" strategy proposed by Hyndman & Taieb (2012) so as the prediction errors can be used to further improve forecasts' accuracy.
+
+Acknowlegment: This tool has been developed at Codeplan <www.codeplan.df.gov.br> as an effort to obtain reliable and timely forecasts from economic variables. However, it is important to highlight that it serves only as a guide to economic analysis and should not be taken as an official tool neither from Codeplan nor from Distrito Federal Government.  
