@@ -28,185 +28,189 @@
 #'}
 
 auto_forecast <- function(data, h = 12, h_cv = 1, window = NULL, acc = "MAE", n = 100, level = 0.05, exclude = NULL, test = NULL){
-
-Equal <- Model <- Point <- valor <- value <- `.id` <- `:=` <- NULL
-
-
-# First step: fit the built-in models in forecast package and compute accuracy measures. ----
-
-mod_fun <- list("auto.arima"  = function(x, h) forecast::forecast(forecast::auto.arima(x), h= h),
-                "tbats"  = function(x, h) forecast::forecast(forecast::tbats(x), h= h),
-                "ets"    = function(x, h) forecast::forecast(forecast::ets(x), h= h),
-                "nnetar" = function(x, h) forecast::forecast(forecast::nnetar(x), h= h),
-                "hw"     = function(x, h) forecast::hw(x, h= h),
-                "arfima" = function(x, h) forecast::forecast(forecast::arfima(x), h= h),
-                "holt" = function(x, h) forecast::holt(x, h= h),
-                "thetaf" = function(x, h) forecast::thetaf(x, h= h),
-                "ses" = function(x, h) forecast::ses(x, h= h),
-                "meanf" = function(x, h) forecast::meanf(x, h= h),
-                "splinef" = function(x, h) forecast::splinef(x, h= h),
-                "StrucTS" = function(x,h) forecast::forecast(stats::StructTS(x), h= h))
-
-# Allow the exclusion of specific models
-
+  
+  Equal <- Model <- Point <- valor <- value <- `.id` <- `:=` <- NULL
+  
+  
+  # First step: fit the built-in models in forecast package and compute accuracy measures. ----
+  
+  mod_fun <- list("auto.arima"  = function(x, h) forecast::forecast(forecast::auto.arima(x), h= h),
+                  "tbats"  = function(x, h) forecast::forecast(forecast::tbats(x), h= h),
+                  "ets"    = function(x, h) forecast::forecast(forecast::ets(x), h= h),
+                  "nnetar" = function(x, h) forecast::forecast(forecast::nnetar(x), h= h),
+                  "hw"     = function(x, h) forecast::hw(x, h= h),
+                  "arfima" = function(x, h) forecast::forecast(forecast::arfima(x), h= h),
+                  "holt" = function(x, h) forecast::holt(x, h= h),
+                  "thetaf" = function(x, h) forecast::thetaf(x, h= h),
+                  "ses" = function(x, h) forecast::ses(x, h= h),
+                  "meanf" = function(x, h) forecast::meanf(x, h= h),
+                  "splinef" = function(x, h) forecast::splinef(x, h= h),
+                  "StrucTS" = function(x,h) forecast::forecast(stats::StructTS(x), h= h))
+  
+  # Allow the exclusion of specific models
+  
   if(!is.null(exclude)){for(i in seq_along(exclude)){mod_fun[[exclude[[i]]]] <- NULL}}
-
-# Compute forecast errors via cross-validation or train/test sets
-
+  
+  # Compute forecast errors via cross-validation or train/test sets
+  
   if(!is.null(test)){
-
+    
     data_train <- window(data, end = test)
-
+    
     data_test <- window(data, start = test)
-
+    
     mod_fit <- purrr::invoke_map(.x = list(data_train), .f = mod_fun, h = length(data_test))
-
+    
     mod_erro <- purrr::map(.x = mod_fit, .f = function(x){
-
+      
       x$mean - data_test
-
-      })
-
+      
+    })
+    
   } else {
-
+    
     mod_cv <- purrr::map2(.f = forecast::tsCV, .x = list(data), .y = mod_fun, h = h_cv, window = window)
-
+    
     if(h_cv > 1){
-
+      
       mod_cv <- purrr::map(.x = mod_cv, .f = function(x){x[, h_cv]})
-
+      
     }
-
+    
     mod_cv_aux <- purrr::map(.x = mod_cv, .f = function(x, ...){
-
+      
       y <- timetk::tk_tbl(x) %>% tidyr::drop_na()
-
+      
       z <- y$value %>% ts(start = xts::first(y$index), end = xts::last(y$index), frequency = stats::frequency(data))
-
+      
       return(z)
-
+      
     })
-
+    
     names(mod_cv_aux) <- names(mod_fun)
-
+    
     mod_erro <- mod_cv_aux
-
+    
   }
-
-# Compute the directional accuracy of models
-
+  
+  # Compute the directional accuracy of models
+  
   sign_obs <- data %>% diff() %>% sign() %>% timetk::tk_tbl() %>% magrittr::set_colnames(c("date", "sign_obs"))
-
+  
   sign_pred <- purrr::map(.x = mod_erro, .f = function(x, ...){
-
+    
     data %>% diff() %>% `-`(x) %>% sign()
-
-    })
-
+    
+  })
+  
   sign_pred_aux <- purrr::map2(.x = sign_pred,
                                .y = as.list(names(sign_pred)),
                                .f = function(x,y, ...){
-
+                                 
                                  timetk::tk_tbl(x) %>% magrittr::set_colnames(c("date", y))
-
+                                 
                                }) %>% purrr::reduce(dplyr::inner_join, by = "date")
-
+  
   sign_acc <- dplyr::inner_join(sign_obs, sign_pred_aux, by = "date")
-
+  
   dir_F <- function(x, ...){table(x == sign_acc$sign_obs)["FALSE"]}
   dir_T <- function(x, ...){table(x == sign_acc$sign_obs)["TRUE"]}
-
+  
   dir_acc <- sign_acc %>%
-
+    
     dplyr::summarise_at(dplyr::vars(-date, -sign_obs), list("T" = dir_T, "F" = dir_F)) %>%
-
+    
     dplyr::mutate_if(is.na, function(x){x = 0}) %>%
-
+    
     dplyr::mutate_all(as.integer) %>%
-
+    
     tidyr::gather(key = var, value = valor) %>%
-
+    
     tidyr::separate(col = var, into = c("Model", "Equal"), sep = "_") %>%
-
+    
     tidyr::spread(key = Equal, value = valor) %>%
-
+    
     dplyr::arrange(dplyr::desc(T))
-
-# Compute MAE and RMSE
-
+  
+  # Compute MAE and RMSE
+  
   mae <- function(x){mean(abs(x), na.rm = TRUE)}
-
+  
   rmse <- function(x){sqrt(mean(x^2, na.rm = TRUE))}
-
+  
   mod_acc <- dplyr::tibble("Model" = names(mod_erro),
                            "MAE" = purrr::map_dbl(.x = mod_erro, .f = mae),
                            "RMSE" = purrr::map_dbl(.x = mod_erro, .f = rmse))
-
-  mod_acc_order <- mod_acc %>%
-
-    dplyr::arrange(
-
-      dplyr::case_when(acc == "MAE" ~ MAE,
-                       acc == "RMSE" ~ RMSE,
-                       !acc %in% c("RMSE","MAE") ~ MAE))
-
-# Pick the best model based on the chosen measure (RMSE, MAE or ACC) and compute forecasts ----
-
-  mod_best <- if(acc != "dir"){mod_acc_order} else{dir_acc}
-
-  mod_best_aux <- mod_best %>%
-
+  
+  ## Merge all accuracy measures
+  
+  mod_acc_order <- dplyr::inner_join(mod_acc, dir_acc, by = "Model")
+  
+  # Pick the best model based on the chosen measure (RMSE, MAE or ACC) and compute forecasts ----
+  
+  mod_acc_order_aux <- if(acc == "dir"){
+    
+    dplyr::arrange(mod_acc_order, desc(T))
+    
+  } else {
+    
+    dplyr::arrange(mod_acc_order, eval(parse(text = acc)))
+    
+  }
+  
+  mod_best <- mod_acc_order_aux %>%
+    
     dplyr::slice(1) %>%
-
+    
     dplyr::select(Model) %>%
-
+    
     as.character()
-
-  mod_best_eval <- eval(parse(text = mod_best_aux))
-
-# Compute point forecasts and confidence intervals through bootstrapped forecasts.
-
+  
+  mod_best_eval <- eval(parse(text = mod_best))
+  
+  # Compute point forecasts and confidence intervals through bootstrapped forecasts.
+  
   mod_boot <- forecast::bld.mbb.bootstrap(data, n)
-
+  
   mod_boot_fc <- purrr::map(.x = mod_boot, .f = function(x) forecast::forecast(mod_best_eval(x), h = h))
-
+  
   mod_boot_fc_aux <- purrr::map(.x = mod_boot_fc, .f = function(x){x[["mean"]] %>% as.numeric()})
-
+  
   names(mod_boot_fc_aux) <- paste("Series", 1:length(mod_boot_fc_aux), sep = "_")
-
+  
   mod_boot_fc_aux_df <- plyr::ldply(mod_boot_fc_aux, rbind)
-
+  
   prev <- mod_boot_fc_aux_df %>%
-
+    
     tidyr::gather(key = h, value = value, -.id) %>%
-
+    
     dplyr::mutate(h = as.numeric(h)) %>%
-
+    
     dplyr::group_by(h) %>%
-
+    
     dplyr::summarise(Point = mean(value),
                      !! paste("Lower", (1-level), sep = "_") := stats::quantile(value, prob = level/2),
                      !! paste("Higher", (1-level), sep = "_") := stats::quantile(value, prob = (1-level/2)))
-
-# Plot forecasts.
-
+  
+  # Plot forecasts.
+  
   plot_fc <- prev %>% ggplot2::ggplot(ggplot2::aes(x = h, y = Point)) +
-
+    
     ggplot2::geom_line(lwd = 1.2, color = "steelblue3") +
-
+    
     ggplot2::geom_ribbon(ggplot2::aes_string(ymin = paste("Lower", (1-level), sep = "_"),
-                           ymax = paste("Higher", (1-level), sep = "_")),
-
-                alpha = 0.3,
-                fill = "steelblue2") +
-
+                                             ymax = paste("Higher", (1-level), sep = "_")),
+                         
+                         alpha = 0.3,
+                         fill = "steelblue2") +
+    
     ggplot2::labs(title = paste("Forecasts from model: ", mod_best_aux, sep = ""),
-         subtitle = paste("Values based on", n, "simulations", sep = " "),
-         y = "",
-         x = "Horizon") +
-
+                  subtitle = paste("Values based on", n, "simulations", sep = " "),
+                  y = "",
+                  x = "Horizon") +
+    
     ggplot2::scale_x_continuous(breaks = 1:h)
-
-  return(list("fc" = prev, "error" = mod_erro, "acc" = mod_acc_order, "dir" = dir_acc, "plot" = plot_fc))
-
+  
+  return(list("fc" = prev, "error" = mod_erro, "acc" = mod_acc_order_aux, "plot" = plot_fc))
+  
 }
