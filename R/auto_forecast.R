@@ -204,7 +204,7 @@ auto_forecast <- function(data, h = 12, h_cv = 1, window = NULL, acc = "MAE", n 
                          alpha = 0.3,
                          fill = "steelblue2") +
     
-    ggplot2::labs(title = paste("Forecasts from model: ", mod_best_aux, sep = ""),
+    ggplot2::labs(title = paste("Forecasts from model: ", mod_best, sep = ""),
                   subtitle = paste("Values based on", n, "simulations", sep = " "),
                   y = "",
                   x = "Horizon") +
