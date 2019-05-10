@@ -113,12 +113,12 @@ auto_forecast <- function(data, h = 12, h_cv = 1, window = NULL, acc = "MAE", n 
   
   sign_acc <- dplyr::inner_join(sign_obs, sign_pred_aux, by = "date")
   
-  dir_F <- function(x, ...){table(x == sign_acc$sign_obs)["FALSE"]}
-  dir_T <- function(x, ...){table(x == sign_acc$sign_obs)["TRUE"]}
+  dir_W <- function(x, ...){table(x == sign_acc$sign_obs)["FALSE"]}
+  dir_R <- function(x, ...){table(x == sign_acc$sign_obs)["TRUE"]}
   
   dir_acc <- sign_acc %>%
     
-    dplyr::summarise_at(dplyr::vars(-date, -sign_obs), list("T" = dir_T, "F" = dir_F)) %>%
+    dplyr::summarise_at(dplyr::vars(-date, -sign_obs), list("Right" = dir_R, "Wrong" = dir_W)) %>%
     
     dplyr::mutate_if(is.na, function(x){x = 0}) %>%
     
@@ -130,7 +130,7 @@ auto_forecast <- function(data, h = 12, h_cv = 1, window = NULL, acc = "MAE", n 
     
     tidyr::spread(key = Equal, value = valor) %>%
     
-    dplyr::arrange(dplyr::desc(T))
+    dplyr::arrange(dplyr::desc(Right))
   
   # Compute MAE and RMSE
   
@@ -150,7 +150,7 @@ auto_forecast <- function(data, h = 12, h_cv = 1, window = NULL, acc = "MAE", n 
   
   mod_acc_order_aux <- if(acc == "dir"){
     
-    dplyr::arrange(mod_acc_order, desc(T))
+    dplyr::arrange(mod_acc_order, desc(Right))
     
   } else {
     
