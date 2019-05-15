@@ -19,7 +19,7 @@ New features:
 Things to improve/include:
 
 1. When choosing the train/test set approach to compute accuracy, return the post- rather than the pre-bagging measures.
-2. Merge all the accuracy measures in a single data frame.
+2. Merge all the accuracy measures in a single data fram (done)
 
 Future developments:
 
