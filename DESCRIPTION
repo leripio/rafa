@@ -9,4 +9,5 @@ License: GPL-3
 Encoding: UTF-8
 LazyData: true
 RoxygenNote: 6.1.1
+Depends: R (>= 3.5.2)
 Imports: tidyverse (>= 1.2.1), forecast (>= 8.5), timetk (>= 0.1.1.1), xts (>= 0.11-2)
