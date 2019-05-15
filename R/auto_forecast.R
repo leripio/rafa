@@ -211,6 +211,6 @@ auto_forecast <- function(data, h = 12, h_cv = 1, window = NULL, acc = "MAE", n 
     
     ggplot2::scale_x_continuous(breaks = 1:h)
   
-  return(list("fc" = prev, "error" = mod_erro, "acc" = mod_acc_order_aux, "plot" = plot_fc))
+  return(list("fc" = prev, "error" = dplyr::as_tibble(mod_erro), "acc" = mod_acc_order_aux, "plot" = plot_fc))
   
 }
