@@ -1,6 +1,8 @@
 # rafa - R Automatic Forecasting Algorithm
 
-Installing rafa (beta version):
+## Installation
+
+You can install rafa (beta version) from github with:
 
 ```r
 
@@ -12,6 +14,7 @@ library(rafa)
 
 ```
 
+## Description
 
 This project is intended to develop an automatic forecasting algorithm in R language with robust specification and confidence intervals calculations. The main goal of this algorithm is to provide the best possible forecast for a time series based on univariate models to serve either as a benchmark for variables which we have a reference model or the reference itself when we do not have a reference model. 
 
