@@ -1,6 +1,6 @@
 # rafa - R Automatic Forecasting Algorithm
 
-Installing rafa beta:
+Installing rafa (beta version):
 
 ```r
 
