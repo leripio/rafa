@@ -37,21 +37,23 @@ More specifically, it relies heavily on the R forecast package by Rob Hyndman an
 3. Select the best model based on (2) and compute forecasts on the bootstrapped versions of the time series (bagging).
 4. Compute mean and confidence intervals.
 
-New features:
+## New features
 
 1. Output now contains a data frame with directional accuracy.
 2. Directional accuracy may be used as a selection criterion. 
 3. It is now possible to exclude some models from evaluation.
 4. It is now possible to choose between cross-validation and train/test set approaches to compute forecast errors.
 
-Things to improve/include:
+## Things to improve/include
 
-1. When choosing the train/test set approach to compute accuracy, return the post- rather than the pre-bagging measures.
-2. Merge all the accuracy measures in a single data fram (done)
+1. Report the post-bagging accuracy measures. By now, only the pre-bagging measures are stored in the acc object.
 
-Future developments:
+
+## Future developments
 
 I intend to incorporate the "rectify" strategy proposed by Hyndman & Taieb (2012) so as the prediction errors can be used to further improve forecasts' accuracy.
 
-Acknowlegment: This tool has been developed at Codeplan <www.codeplan.df.gov.br> as an effort to obtain reliable and timely forecasts from economic variables. However, it is important to highlight that it serves only as a guide to economic analysis and should not be taken as an official tool neither from Codeplan nor from Distrito Federal Government.
+## Acknowlegment 
+
+This tool has been developed at Codeplan <www.codeplan.df.gov.br> as an effort to obtain reliable and timely forecasts from economic variables. However, it is important to highlight that it serves only as a guide to economic analysis and should not be taken as an official tool neither from Codeplan nor from Distrito Federal Government.
 
