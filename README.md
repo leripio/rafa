@@ -2,7 +2,7 @@
 
 ## Installation
 
-You can install rafa (beta version) from github with:
+It's a development version. So I strong recommend you to update whenever you use it. You can install rafa from github with:
 
 ```r
 
