@@ -42,7 +42,7 @@ More specifically, it relies heavily on the R forecast package by Rob Hyndman an
 1. Output now contains a data frame with directional accuracy.
 2. Directional accuracy may be used as a selection criterion. 
 3. It is now possible to exclude some models from evaluation.
-4. It is now possible to choose between cross-validation and train/test set approaches to compute forecast errors.
+4. It is now possible to choose between cross-validation and train/test set approaches to compute forecast errors. The last option is faster.
 
 ## Things to improve/include
 
