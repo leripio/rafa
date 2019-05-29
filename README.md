@@ -1,4 +1,4 @@
-# rafa - R Automatic Forecasting Algorithm
+# rafa - R Automatic Forecasting Algorithm (Version 0.0.2)
 
 ## Installation
 
@@ -37,12 +37,13 @@ More specifically, it relies heavily on the R forecast package by Rob Hyndman an
 3. Select the best model based on (2) and compute forecasts on the bootstrapped versions of the time series (bagging).
 4. Compute mean and confidence intervals.
 
-## New features
+## Latest features
 
-1. Output now contains a data frame with directional accuracy.
-2. Directional accuracy may be used as a selection criterion. 
-3. It is now possible to exclude some models from evaluation.
-4. It is now possible to choose between cross-validation and train/test set approaches to compute forecast errors. The last option is faster.
+1. Added "Extreme Learning Machine" model (ELM) from nnfor package. 
+2. Output now contains a data frame with directional accuracy.
+3. Directional accuracy may be used as a selection criterion. 
+4. It is now possible to exclude some models from evaluation.
+5. It is now possible to choose between cross-validation and train/test set approaches to compute forecast errors. The last option is faster.
 
 ## Things to improve/include
 
