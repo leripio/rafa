@@ -1,7 +1,7 @@
 Package: rafa
 Type: Package
 Title: Automatic forecasting from univariate time series
-Version: 0.0.1
+Version: 0.0.2
 Author: J. Renato Leripio
 Maintainer: J. Renato Leripio <leripiorenato@gmail.com>
 Description: This function provides an algorithm to compute the best possible forecast from the available set of univariate time series. Additionaly, bootstrap methods are employed to both refine point forecasts and compute confidence intervals.
