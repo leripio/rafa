@@ -1,4 +1,4 @@
-# rafa - R Automatic Forecasting Algorithm (Version 0.0.2)
+# rafa - R Automatic Forecasting Algorithm (v0.0.2)
 
 ## Installation
 
