@@ -33,7 +33,7 @@ This project is intended to develop an automatic forecasting algorithm in R lang
 More specifically, it relies heavily on the R forecast package by Rob Hyndman and it is divided in 4 steps:
 
 1. Fit several univariate models to the time series sample.
-2. Calculate forecast errors for each model in (1) through cross-validation and compute accuracy statistics (RMSE, MAE, etc).
+2. Calculate forecast errors for each model in (1) and compute accuracy statistics (RMSE, MAE, etc).
 3. Select the best model based on (2) and compute forecasts on the bootstrapped versions of the time series (bagging).
 4. Compute mean and confidence intervals.
 
