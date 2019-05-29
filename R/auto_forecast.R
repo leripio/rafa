@@ -10,7 +10,7 @@
 #' @param exclude one or more models to exclude from evaluation, eg. "auto.arima" or c("tbats", "nnetar").
 #' @param test first observation in the test set. Either a single number or a vector of two integers. If not NULL, overrides cross-validation arguments.
 #' @author J. Renato Leripio
-#' @details Available models are: "auto.arima", "tbats", "ets", "nnetar", "hw", "arfima", "holt", "thetaf", "ses", "meanf", "splinef", "StrucTS". For more details about these models, see the documentation from forecast package.
+#' @details Available models are: "auto.arima", "tbats", "ets", "nnetar", "hw", "arfima", "holt", "thetaf", "ses", "meanf", "splinef", "StrucTS", "elm". For more details about these models, see the documentation from forecast and nnfor packages.
 #' @export auto_forecast
 #' @return An object of class list containing the following elements:
 #' \item{fc}{A tibble containing point forecasts and lower/upper limits from the bootstrapped distribution.}
