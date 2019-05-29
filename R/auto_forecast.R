@@ -14,9 +14,10 @@
 #' @export auto_forecast
 #' @return An object of class list containing the following elements:
 #' \item{fc}{A tibble containing point forecasts and lower/upper limits from the bootstrapped distribution.}
-#' \item{error}{A tibble containing out-of-sample forecast errors}
-#' \item{acc}{A tibble containing RMSE and MAE values for each model ordered according to the selected criteria}
-#' \item{dir}{A tibble containing the ordered directional accuracy for each model}
+#' \item{error}{A tibble containing out-of-sample forecast errors.}
+#' \item{acc}{A tibble containing RMSE and MAE values for each model ordered according to the selected criteria.}
+#' \item{dir}{A tibble containing the ordered directional accuracy for each model.}
+#' \item{model}{A character vector with the selected model.}
 #' \item{plot}{A ggplot object with graphical representation of both the point forecasts and confidence intervals.}
 #' @description This function provides an algorithm to compute the best possible forecast from the available set of univariate time series. Additionaly, bootstrap methods are employed to both refine point forecasts and compute confidence intervals.
 #' @importFrom magrittr %>%
@@ -45,7 +46,8 @@ auto_forecast <- function(data, h = 12, h_cv = 1, window = NULL, acc = "MAE", n 
                   "ses" = function(x, h) forecast::ses(x, h= h),
                   "meanf" = function(x, h) forecast::meanf(x, h= h),
                   "splinef" = function(x, h) forecast::splinef(x, h= h),
-                  "StrucTS" = function(x,h) forecast::forecast(stats::StructTS(x), h= h))
+                  "StrucTS" = function(x,h) forecast::forecast(stats::StructTS(x), h= h),
+                  "elm" = function(x,h) forecast::forecast(nnfor::elm(x), h=h))
   
   # Allow the exclusion of specific models
   
@@ -211,6 +213,6 @@ auto_forecast <- function(data, h = 12, h_cv = 1, window = NULL, acc = "MAE", n 
     
     ggplot2::scale_x_continuous(breaks = 1:h)
                             
-  return(list("fc" = prev, "error" = mod_erro, "acc" = mod_acc_order_aux, "plot" = plot_fc))
+  return(list("fc" = prev, "error" = mod_erro, "acc" = mod_acc_order_aux, "model" = mod_best, "plot" = plot_fc))
   
 }
