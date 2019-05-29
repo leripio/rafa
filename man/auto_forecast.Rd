@@ -32,7 +32,7 @@ An object of class list containing the following elements:
 \item{error}{A tibble containing out-of-sample forecast errors.}
 \item{acc}{A tibble containing RMSE and MAE values for each model ordered according to the selected criteria.}
 \item{dir}{A tibble containing the ordered directional accuracy for each model.}
-\item{model}{Character vector with the selected model.
+\item{model}{Character vector with the selected model.}
 \item{plot}{A ggplot object with graphical representation of both the point forecasts and confidence intervals.}
 }
 \description{
