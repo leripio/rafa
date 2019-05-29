@@ -29,16 +29,17 @@ auto_forecast(data, h = 12, h_cv = 1, window = NULL, acc = "MAE",
 \value{
 An object of class list containing the following elements:
 \item{fc}{A tibble containing point forecasts and lower/upper limits from the bootstrapped distribution.}
-\item{error}{A tibble containing out-of-sample forecast errors}
-\item{acc}{A tibble containing RMSE and MAE values for each model ordered according to the selected criteria}
-\item{dir}{A tibble containing the ordered directional accuracy for each model}
+\item{error}{A tibble containing out-of-sample forecast errors.}
+\item{acc}{A tibble containing RMSE and MAE values for each model ordered according to the selected criteria.}
+\item{dir}{A tibble containing the ordered directional accuracy for each model.}
+\item{model}{A character vector with the selected model.}
 \item{plot}{A ggplot object with graphical representation of both the point forecasts and confidence intervals.}
 }
 \description{
 This function provides an algorithm to compute the best possible forecast from the available set of univariate time series. Additionaly, bootstrap methods are employed to both refine point forecasts and compute confidence intervals.
 }
 \details{
-Available models are: "auto.arima", "tbats", "ets", "nnetar", "hw", "arfima", "holt", "thetaf", "ses", "meanf", "splinef", "StrucTS". For more details about these models, see the documentation from forecast package.
+Available models are: "auto.arima", "tbats", "ets", "nnetar", "hw", "arfima", "holt", "thetaf", "ses", "meanf", "splinef", "StrucTS", "elm". For more details about these models, see the documentation from forecast and nnfor packages.
 }
 \examples{
 \dontrun{
