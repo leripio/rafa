@@ -39,7 +39,7 @@ More specifically, it relies heavily on the R forecast package by Rob Hyndman an
 
 ## Latest features
 
-1. Added "Extreme Learning Machine" model (ELM) from nnfor package. 
+1. Added "Extreme Learning Machine" model (ELM) from nnfor package. (Suggestion by Arthur Lula) 
 2. Output now contains a data frame with directional accuracy.
 3. Directional accuracy may be used as a selection criterion. 
 4. It is now possible to exclude some models from evaluation.
