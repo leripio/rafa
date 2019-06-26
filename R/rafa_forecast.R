@@ -33,20 +33,29 @@ rafa_forecast <- function(data, h = 12, h_cv = 1, window = NULL, acc = "MAE", n 
   mod_fun <- rafa_list_models(exclude = exclude, h = h)
 
   # Compute forecast errors via cross-validation or train/test sets
-  mod_error <- rafa_compute_error(data = data, mod_fun = mod_fun, window = window, test = test, h_cv = h_cv)
+  mod_erro <- rafa_compute_error(data = data, mod_fun = mod_fun, window = window, test = test, h_cv = h_cv)
 
-  #
+  # Calculates the accuracy measures and order accordingly to the acc input
   mod_acc_order_aux <- rafa_order_acc(
-    rafa_mae_rmse(mod_erro = mod_error),
+    rafa_mae_rmse(mod_erro = mod_erro),
     rafa_dir_acc(data = data, mod_erro = mod_erro),
     acc = acc)
 
-  #Names the best model
+  # Names the best model
   mod_best <- mod_acc_order_aux %>%
     dplyr::slice(1) %>%
     dplyr::select(Model) %>%
     as.character()
 
-  #
+  # Atributes the best model
   mod_best_eval <- eval(parse(text = mod_best))
+
+  # Compute point forecasts and confidence intervals through bootstrapped forecasts.
+  prev <- rafa_boot_pred(USAccDeaths, h = h, n = n, level = level, mod_best_eval = mod_best_eval)
+
+  # Plot forecasts
+  plot_fc <- rafa_plot_forecast(prev = prev, h = h, n = n, level = level, mod_best = mod_best)
+
+  # Return items
+  return(list("fc" = prev, "error" = mod_erro, "acc" = mod_acc_order_aux, "model" = mod_best, "plot" = plot_fc))
 }
