@@ -1,7 +1,7 @@
 library(rafa)
 
 #Funcoes Rafa
-rafa_lista_funcoes <- function(exclude = NULL){
+rafa_list_functions <- function(exclude = NULL){
   mod_fun <- list("auto.arima"  = function(x, h) forecast::forecast(forecast::auto.arima(x), h= h),
                   "tbats"  = function(x, h) forecast::forecast(forecast::tbats(x), h= h),
                   "ets"    = function(x, h) forecast::forecast(forecast::ets(x), h= h),
@@ -49,7 +49,7 @@ rafa_compute_error <- function(data, test, h_cv){
 }
 
 # Compute the directional accuracy of models
-rafa_acc_dir <- function(data, mod_erro){
+rafa_dir_acc <- function(data, mod_erro){
   sign_obs <- data %>% diff() %>% sign() %>% timetk::tk_tbl() %>% magrittr::set_colnames(c("date", "sign_obs"))
   sign_pred <- purrr::map(.x = mod_erro, .f = function(x, ...){
     data %>% diff() %>% `-`(x) %>% sign()
