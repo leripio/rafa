@@ -6,12 +6,15 @@
 #' @param h_cv forecast horizon to compute accuracy by cross-validation.
 #' @param window length of the rolling window for cross-validation. If NULL, a rolling window will not be used.
 #' @return A list of data frames with errors of the various models used
-#' @export
+#' @author J. Renato Leripio
 #' @examples
+#' \dontrun{
+#' library(rafa)
 #' models <- rafa_list_models(exclude = c("nnetar", "hw", "arfima", "holt", "thetaf", "ses", "meanf", "splinef", "StructTS", "elm"))
 #' modelos
 #' errors <- rafa_compute_error(USAccDeaths, mod_fun = models)
 #' errors
+#' }
 
 rafa_compute_error <- function(data, mod_fun, window = NULL, test = NULL, h_cv = 1){
   if(!is.null(test)){
