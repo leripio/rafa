@@ -5,9 +5,14 @@
 #' @param h forecast horizon.
 #' @return A list of models.
 #' @export
+#' @author J. Renato Leripio
+#' @details Available models are: "auto.arima", "tbats", "ets", "nnetar", "hw", "arfima", "holt", "thetaf", "ses", "meanf", "splinef", "StrucTS". For more details about these models, see the documentation from forecast package.
 #' @examples
+#'\dontrun{
+#' library(rafa)
 #' rafa_list_functions(exclude = NULL)
 #' rafa_list_functions(exclude = "ses")
+#' }
 
 rafa_list_models <- function(exclude = NULL, h = 12){
   force(h)
