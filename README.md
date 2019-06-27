@@ -20,7 +20,7 @@ library(rafa)
 
 library(rafa)
 
-my_fc <- rafa_forecast(USAccDeaths, test = c(1976,12))
+my_fc <- auto_forecast(USAccDeaths, test = c(1976,12))
 
 my_fc$fc
 
