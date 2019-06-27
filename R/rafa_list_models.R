@@ -4,7 +4,6 @@
 #' @param exclude One or more models to exclude from evaluation, eg. "auto.arima" or c("tbats", "nnetar").
 #' @param h forecast horizon.
 #' @return A list of models.
-#' @export
 #' @author J. Renato Leripio
 #' @details Available models are: "auto.arima", "tbats", "ets", "nnetar", "hw", "arfima", "holt", "thetaf", "ses", "meanf", "splinef", "StrucTS". For more details about these models, see the documentation from forecast package.
 #' @examples
