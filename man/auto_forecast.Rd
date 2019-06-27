@@ -5,7 +5,7 @@
 \title{Automatic forecasting from univariate time series}
 \usage{
 auto_forecast(data, h = 12, h_cv = 1, window = NULL, acc = "MAE",
-  n = 10, level = 0.05, exclude = NULL, test = NULL)
+  n = 100, level = 0.05, exclude = NULL, test = NULL)
 }
 \arguments{
 \item{data}{univariate time series (ts object).}
@@ -39,12 +39,12 @@ An object of class list containing the following elements:
 This function provides an algorithm to compute the best possible forecast from the available set of univariate time series. Additionaly, bootstrap methods are employed to both refine point forecasts and compute confidence intervals.
 }
 \details{
-Available models are: "auto.arima", "tbats", "ets", "nnetar", "hw", "arfima", "holt", "thetaf", "ses", "meanf", "splinef", "StrucTS", "elm". For more details about these models, see the documentation from forecast and nnfor packages.
+Available models are: "auto.arima", "tbats", "ets", "nnetar", "hw", "arfima", "holt", "thetaf", "ses", "meanf", "splinef", "StrucTS". For more details about these models, see the documentation from forecast package.
 }
 \examples{
 \dontrun{
 library(rafa)
-auto_forecast(USAccDeaths, test = c(1976,12))
+auto_forecast(USAccDeaths)
 }
 }
 \author{
