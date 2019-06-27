@@ -1,6 +1,6 @@
 #' Creates list of forecast models to use
 #'
-#' This function creates a list of models to later use in automatic forecast
+#' This function creates a list of models to later use in automatic forecast.
 #' @param exclude One or more models to exclude from evaluation, eg. "auto.arima" or c("tbats", "nnetar").
 #' @param h forecast horizon.
 #' @return A list of models.

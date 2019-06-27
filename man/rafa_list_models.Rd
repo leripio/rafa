@@ -15,7 +15,7 @@ rafa_list_models(exclude = NULL, h = 12)
 A list of models.
 }
 \description{
-This function creates a list of models to later use in automatic forecast
+This function creates a list of models to later use in automatic forecast. It has the same behaviour of the auto_forecast function
 }
 \details{
 Available models are: "auto.arima", "tbats", "ets", "nnetar", "hw", "arfima", "holt", "thetaf", "ses", "meanf", "splinef", "StrucTS". For more details about these models, see the documentation from forecast package.

@@ -19,7 +19,8 @@
 #' \item{dir}{A tibble containing the ordered directional accuracy for each model.}
 #' \item{model}{A character vector with the selected model.}
 #' \item{plot}{A ggplot object with graphical representation of both the point forecasts and confidence intervals.}
-#' @description This function provides an algorithm to compute the best possible forecast from the available set of univariate time series. Additionaly, bootstrap methods are employed to both refine point forecasts and compute confidence intervals.
+#' @description This function provides an algorithm to compute the best possible forecast from the available set of univariate time series. Additionaly, bootstrap methods are employed to both refine point forecasts and compute confidence intervals. It has the same behaviour of the auto_forecast function
+#' @export
 #' @importFrom magrittr %>%
 #' @importFrom stats ts var
 #' @examples
