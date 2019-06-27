@@ -51,7 +51,7 @@ rafa_forecast <- function(data, h = 12, h_cv = 1, window = NULL, acc = "MAE", n 
   mod_best_eval <- eval(parse(text = mod_best))
 
   # Compute point forecasts and confidence intervals through bootstrapped forecasts.
-  prev <- rafa_boot_pred(USAccDeaths, h = h, n = n, level = level, mod_best_eval = mod_best_eval)
+  prev <- rafa_boot_pred(data = data, h = h, n = n, level = level, mod_best_eval = mod_best_eval)
 
   # Plot forecasts
   plot_fc <- rafa_plot_forecast(prev = prev, h = h, n = n, level = level, mod_best = mod_best)
