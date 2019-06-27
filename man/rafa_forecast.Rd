@@ -36,7 +36,7 @@ An object of class list containing the following elements:
 \item{plot}{A ggplot object with graphical representation of both the point forecasts and confidence intervals.}
 }
 \description{
-This function provides an algorithm to compute the best possible forecast from the available set of univariate time series. Additionaly, bootstrap methods are employed to both refine point forecasts and compute confidence intervals.
+This function provides an algorithm to compute the best possible forecast from the available set of univariate time series. Additionaly, bootstrap methods are employed to both refine point forecasts and compute confidence intervals. It has the same behaviour of the auto_forecast function
 }
 \details{
 Available models are: "auto.arima", "tbats", "ets", "nnetar", "hw", "arfima", "holt", "thetaf", "ses", "meanf", "splinef", "StrucTS". For more details about these models, see the documentation from forecast package.
