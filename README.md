@@ -48,7 +48,7 @@ More specifically, it relies heavily on the R forecast package by Rob Hyndman an
 ## Things to improve/include
 
 1. Report the post-bagging accuracy measures. By now, only the pre-bagging measures are stored in the acc object.
-
+2. Include ensambling methods.
 
 ## Future developments
 
