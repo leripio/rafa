@@ -46,7 +46,7 @@ auto_forecast <- function(data, h = 12, h_cv = 1, window = NULL, acc = "MAE", n 
                   "ses" = function(x, h) forecast::ses(x, h= h),
                   "meanf" = function(x, h) forecast::meanf(x, h= h),
                   "splinef" = function(x, h) forecast::splinef(x, h= h),
-                  "StrucTS" = function(x,h) forecast::forecast(stats::StructTS(x), h= h),
+                  "StructTS" = function(x,h) forecast::forecast(stats::StructTS(x), h= h),
                   "elm" = function(x,h) forecast::forecast(nnfor::elm(x), h = h))
   
   # Allow the exclusion of specific models
