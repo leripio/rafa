@@ -48,7 +48,7 @@ More specifically, it relies heavily on the R forecast package by Rob Hyndman an
 ## Things to improve/include
 
 1. Report the post-bagging accuracy measures. By now, only the pre-bagging measures are stored in the acc object.
-
+2. Include ensambling methods.
 
 ## Future developments
 
@@ -57,4 +57,3 @@ I intend to incorporate the "rectify" strategy proposed by Hyndman & Taieb (2012
 ## Acknowlegment 
 
 This tool has been developed at Codeplan <www.codeplan.df.gov.br> as an effort to obtain reliable and timely forecasts from economic variables. However, it is important to highlight that it serves only as a guide to economic analysis and should not be taken as an official tool neither from Codeplan nor from Distrito Federal Government.
-
