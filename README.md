@@ -50,6 +50,10 @@ More specifically, it relies heavily on the R forecast package by Rob Hyndman an
 1. Report the post-bagging accuracy measures. By now, only the pre-bagging measures are stored in the acc object.
 2. Include ensambling methods.
 
+## Reported bugs
+
+1. There is a one-observation-leakage in the train/test approach to evaluate model performance. (not fixed yet)
+
 ## Future developments
 
 I intend to incorporate the "rectify" strategy proposed by Hyndman & Taieb (2012) so as the prediction errors can be used to further improve forecasts' accuracy.
